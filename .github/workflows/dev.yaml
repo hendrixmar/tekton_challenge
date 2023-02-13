@@ -33,13 +33,6 @@ jobs:
         with:
           python-version: '3.9'
           cache: 'pip' # caching pip dependencies
-
-      - name: Cache pip install
-        uses: actions/cache@v2
-        id: cache
-        with:
-          path: ~/.cache/pip
-          key: ${{ hashFiles('requirements.txt') }}
       - name: Install dependencies
         #if: steps.cache.outputs.cache-hit != 'true'
         run: |
@@ -55,11 +48,5 @@ jobs:
         run: |
           pytest
         env:
-          DB_HOST: localhost
-          DB_PORT: 5432
-          DB_NAME: devdb
-          DB_USER: devuser
-          DB_PASS: postgres
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+
+          DATABASE_URL: postgresql+asyncpg://postgres:postgres@db:5432/foo
