@@ -1,8 +1,5 @@
-from fastapi import Depends, FastAPI
-from sqlalchemy.future import select
-from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import FastAPI
 
-from app.db import get_session
 from app.products.router import product_router
 from app.users.router import user_router
 app = FastAPI()

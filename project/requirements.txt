@@ -8,3 +8,5 @@ httpx==0.23.1
 python-jose[cryptography]
 passlib[bcrypt]
 python-multipart
+python-dotenv
+pytest_asyncio
