@@ -8,4 +8,4 @@ jobs:
       - name: Build the stack
         run: docker-compose up -d --build
       - name: Test
-        run: docker-compose exec web pytest
+        run: docker-compose exec -T web pytest
