@@ -38,8 +38,6 @@ jobs:
         #if: steps.cache.outputs.cache-hit != 'true'
         run: |
           python -m pip install --upgrade pip
-          pwd
-          ls
           pip install -r requirements-dev.txt
       - name: Black formatter
         run: |
@@ -47,11 +45,6 @@ jobs:
       - name: Lint with flake8
         run: |
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-      - name: Alembic migration
-        working-directory: ./project
-        run: |
-          alembic revision --autogenerate -m "new migration"
-          alembic upgrade head
       - name: Test with pytest
         run: |
           pytest

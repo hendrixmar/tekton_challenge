@@ -49,3 +49,12 @@ class SqlAlchemyRepository(AbstractRepository):
     async def list_resource(self):
         result = await self.session.execute(select(self.model))
         return result.scalars().all()
+
+
+"""
+      - name: Alembic migration
+        working-directory: ./project
+        run: |
+          alembic revision --autogenerate -m "new migration"
+          alembic upgrade head
+"""
