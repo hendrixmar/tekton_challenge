@@ -50,7 +50,7 @@ jobs:
       - name: Alembic migration
         working-directory: ./project
         run: |
-          ls
+          alembic revision --autogenerate -m "new migration"
           alembic upgrade head
       - name: Test with pytest
         run: |
