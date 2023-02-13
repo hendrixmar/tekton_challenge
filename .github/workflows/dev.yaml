@@ -51,3 +51,4 @@ jobs:
           pytest
         env:
           DATABASE_URL: "postgresql+asyncpg://postgres:postgres@db:6543/foo"
+          PORT: "8004"

@@ -26,7 +26,7 @@ def event_loop(request) -> Generator:  # noqa: indirect usage
 async def async_client():
     async with AsyncClient(
             app=app,
-            base_url=f"http://0.0.0.0:8000"
+            base_url=f"http://0.0.0.0:{os.getenv('PORT')}"
     ) as client:
         yield client
 

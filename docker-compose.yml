@@ -11,6 +11,7 @@ services:
       - 8004:8000
     environment:
       - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/foo
+      - PORT=8000
     depends_on:
       - db
 
