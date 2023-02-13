@@ -50,4 +50,4 @@ jobs:
         run: |
           pytest
         env:
-          DATABASE_URL: "postgresql+asyncpg://postgres:postgres@db:5432/foo"
+          DATABASE_URL: "postgresql+asyncpg://postgres:postgres@db:6543/foo"
