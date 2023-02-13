@@ -24,6 +24,7 @@ def event_loop(request) -> Generator:  # noqa: indirect usage
 
 @pytest_asyncio.fixture
 async def async_client():
+    print(f"http://0.0.0.0:{os.getenv('PORT')}", "github ACTIONSSS")
     async with AsyncClient(
             app=app,
             base_url=f"http://0.0.0.0:{os.getenv('PORT')}"
@@ -52,13 +53,13 @@ async def async_session() -> AsyncSession:
 
 @pytest.fixture(scope="function")
 def test_data() -> dict:
-   path = os.getenv('PYTEST_CURRENT_TEST')
-   path = os.path.join(*os.path.split(path)[:-1], "data", "data.json")
+    path = os.getenv('PYTEST_CURRENT_TEST')
+    path = os.path.join(*os.path.split(path)[:-1], "data", "data.json")
 
-   if not os.path.exists(path):
-       path = os.path.join("data", "data.json")
+    if not os.path.exists(path):
+        path = os.path.join("data", "data.json")
 
-   with open(path, "r") as file:
-       data = json.loads(file.read())
+    with open(path, "r") as file:
+        data = json.loads(file.read())
 
-   return data
+    return data
