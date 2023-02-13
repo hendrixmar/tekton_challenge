@@ -6,6 +6,8 @@ from app.db import get_session
 from app.products.models import Product, ProductBase, ProductCreate
 from fastapi import APIRouter
 from app.products.service import SqlAlchemyRepository
+from app.users.deps import get_current_user
+from app.users.schemas import SystemUser
 
 product_router = APIRouter()
 
@@ -25,7 +27,7 @@ async def get_product(product_id: int, session: AsyncSession = Depends(get_sessi
 
 
 @product_router.post("/", response_model=Product, status_code=http_status.HTTP_202_ACCEPTED)
-async def post_product(product_body: ProductBase, session: AsyncSession = Depends(get_session)):
+async def post_product(product_body: ProductBase, session: AsyncSession = Depends(get_session), user: SystemUser = Depends(get_current_user)):
     crud_instance = SqlAlchemyRepository(session, Product)
     result: Product = await crud_instance.add(product_body)
 
