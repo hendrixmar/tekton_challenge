@@ -24,11 +24,10 @@ def event_loop(request) -> Generator:  # noqa: indirect usage
 
 @pytest_asyncio.fixture
 async def async_client():
-    print(f"http://0.0.0.0:{os.getenv('PORT')}", "github ACTIONSSS")
-    print(f"{os.getenv('DB_ASYNC_CONNECTION_STR')}", "github ACTIONSSS")
+
     async with AsyncClient(
             app=app,
-            base_url=f"http://0.0.0.0:{os.getenv('PORT')}"
+            base_url=f"http://0.0.0.0:8000"
     ) as client:
         yield client
 
