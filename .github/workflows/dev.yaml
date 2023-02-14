@@ -27,6 +27,7 @@ jobs:
         run: docker-compose up -d --build
       - name: Migrations
         run: |
-          docker-compose exec web alembic upgrade head
+          docker-compose exec -T web ls
+          docker-compose exec -T web alembic upgrade head
       - name: Testing
         run: docker-compose exec -T web pytest
