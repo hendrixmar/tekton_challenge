@@ -13,7 +13,7 @@ product_router = APIRouter()
 
 
 @product_router.get(
-    "/", response_model=list[Product], status_code=http_status.HTTP_200_OK
+    "", response_model=list[Product], status_code=http_status.HTTP_200_OK
 )
 async def list_products(session: AsyncSession = Depends(get_async_session)):
     crud_instance = SqlAlchemyRepository(session, Product)
@@ -33,7 +33,7 @@ async def get_product(
 
 
 @product_router.post(
-    "/", response_model=Product, status_code=http_status.HTTP_202_ACCEPTED
+    "", response_model=Product, status_code=http_status.HTTP_202_ACCEPTED
 )
 async def post_product(
     product_body: ProductBase,
