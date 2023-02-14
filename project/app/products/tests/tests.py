@@ -5,10 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 
 @pytest.mark.asyncio
-async def test_create_hero(
-        async_client: AsyncClient,
-        async_session: AsyncSession
-):
+async def test_create_hero(async_client: AsyncClient, async_session: AsyncSession):
     response = await async_client.get("/ping")
 
     assert response.status_code == 200

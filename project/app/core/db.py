@@ -7,9 +7,7 @@ from sqlalchemy.orm import sessionmaker
 from app import settings
 
 async_engine = create_async_engine(
-    settings.db_async_connection_str,
-    echo=True,
-    future=True
+    settings.db_async_connection_str, echo=True, future=True
 )
 
 

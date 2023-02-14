@@ -11,27 +11,28 @@ from app.users.deps import db
 user_router = APIRouter()
 
 
-@user_router.post('/signup', summary="Create new user", response_model=UserOut)
+@user_router.post("/signup", summary="Create new user", response_model=UserOut)
 async def create_user(data: UserAuth):
     # querying database to check if user already exist
     user = db.get(data.email)
     if user is not None:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="User with this email already exist"
+            detail="User with this email already exist",
         )
     user = {
-        'email': data.email,
-        'password': get_hashed_password(data.password),
-        'id': str(uuid4())
+        "email": data.email,
+        "password": get_hashed_password(data.password),
+        "id": str(uuid4()),
     }
     db[data.email] = user  # saving user to database
     return user
 
 
-@user_router.post('/login',
-                  summary="Create access and refresh tokens for user",
-                  response_model=TokenSchema)
+@user_router.post(
+    "/login",
+    summary="Create access and refresh tokens for user",
+    response_model=TokenSchema,
+)
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     return create_login_session(form_data)
-

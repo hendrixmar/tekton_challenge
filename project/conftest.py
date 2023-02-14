@@ -24,19 +24,13 @@ def event_loop(request) -> Generator:  # noqa: indirect usage
 
 @pytest_asyncio.fixture
 async def async_client():
-
-    async with AsyncClient(
-            app=app,
-            base_url=f"http://0.0.0.0:8000"
-    ) as client:
+    async with AsyncClient(app=app, base_url=f"http://0.0.0.0:8000") as client:
         yield client
 
 
 @pytest_asyncio.fixture(scope="function")
 async def async_session() -> AsyncSession:
-    session = sessionmaker(
-        async_engine, class_=AsyncSession, expire_on_commit=False
-    )
+    session = sessionmaker(async_engine, class_=AsyncSession, expire_on_commit=False)
 
     async with session() as s:
         async with async_engine.begin() as conn:
@@ -53,7 +47,7 @@ async def async_session() -> AsyncSession:
 
 @pytest.fixture(scope="function")
 def test_data() -> dict:
-    path = os.getenv('PYTEST_CURRENT_TEST')
+    path = os.getenv("PYTEST_CURRENT_TEST")
     path = os.path.join(*os.path.split(path)[:-1], "data", "data.json")
 
     if not os.path.exists(path):

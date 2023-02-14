@@ -2,27 +2,19 @@ from typing import Union, Any
 from datetime import datetime
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-from .utils import (
-    ALGORITHM,
-    JWT_SECRET_KEY
-)
+from .utils import ALGORITHM, JWT_SECRET_KEY
 
 from jose import jwt
 from pydantic import ValidationError
 from app.users.schemas import TokenPayload, SystemUser
 from replit import db
 
-reuseable_oauth = OAuth2PasswordBearer(
-    tokenUrl="/login",
-    scheme_name="JWT"
-)
+reuseable_oauth = OAuth2PasswordBearer(tokenUrl="/login", scheme_name="JWT")
 
 
 async def get_current_user(token: str = Depends(reuseable_oauth)) -> SystemUser:
     try:
-        payload = jwt.decode(
-            token, JWT_SECRET_KEY, algorithms=[ALGORITHM]
-        )
+        payload = jwt.decode(token, JWT_SECRET_KEY, algorithms=[ALGORITHM])
         token_data = TokenPayload(**payload)
 
         if datetime.fromtimestamp(token_data.exp) < datetime.now():
@@ -31,7 +23,7 @@ async def get_current_user(token: str = Depends(reuseable_oauth)) -> SystemUser:
                 detail="Token expired",
                 headers={"WWW-Authenticate": "Bearer"},
             )
-    except(jwt.JWTError, ValidationError):
+    except (jwt.JWTError, ValidationError):
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Could not validate credentials",

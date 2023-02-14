@@ -10,3 +10,7 @@ passlib[bcrypt]
 python-multipart
 python-dotenv
 pytest_asyncio
+flake8
+pytest
+black
+isort

@@ -13,10 +13,13 @@ REFRESH_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  # 7 days
 ALGORITHM = "HS256"
 JWT_SECRET_KEY = r"\wug2Df1}y2\c?o_I$?'o-~*vOs3XR/=g:~BRM#I;IN4<1nUF0v%Ey37kz^rER"
 # os.environ['JWT_SECRET_KEY']   # should be kept secret
-JWT_REFRESH_SECRET_KEY = "E51C6DD89D2E40309C2D6CBC42DAE63DF029A96A30DDDD310D682A1E30A75A90"
+JWT_REFRESH_SECRET_KEY = (
+    "E51C6DD89D2E40309C2D6CBC42DAE63DF029A96A30DDDD310D682A1E30A75A90"
+)
 
 
 # os.environ['JWT_REFRESH_SECRET_KEY']
+
 
 def get_hashed_password(password: str) -> str:
     return password_context.hash(password)
@@ -30,7 +33,9 @@ def create_access_token(subject: Union[str, Any], expires_delta: int = None) -> 
     if expires_delta is not None:
         expires_delta = datetime.utcnow() + expires_delta
     else:
-        expires_delta = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+        expires_delta = datetime.utcnow() + timedelta(
+            minutes=ACCESS_TOKEN_EXPIRE_MINUTES
+        )
 
     to_encode = {"exp": expires_delta, "sub": str(subject)}
     encoded_jwt = jwt.encode(to_encode, JWT_SECRET_KEY, ALGORITHM)
@@ -41,7 +46,9 @@ def create_refresh_token(subject: Union[str, Any], expires_delta: int = None) ->
     if expires_delta is not None:
         expires_delta = datetime.utcnow() + expires_delta
     else:
-        expires_delta = datetime.utcnow() + timedelta(minutes=REFRESH_TOKEN_EXPIRE_MINUTES)
+        expires_delta = datetime.utcnow() + timedelta(
+            minutes=REFRESH_TOKEN_EXPIRE_MINUTES
+        )
 
     to_encode = {"exp": expires_delta, "sub": str(subject)}
     encoded_jwt = jwt.encode(to_encode, JWT_REFRESH_SECRET_KEY, ALGORITHM)

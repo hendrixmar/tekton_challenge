@@ -26,7 +26,6 @@ class SqlAlchemyRepository(AbstractRepository):
         return retrieved_resource
 
     async def modify(self, resource_id: int, new_resource_content: SQLModel):
-
         product = await self.get(resource_id)
         values = new_resource_content.dict(exclude_unset=True)
 
@@ -40,7 +39,6 @@ class SqlAlchemyRepository(AbstractRepository):
         return product
 
     async def delete(self, resource_id: int):
-
         product = await self.get(resource_id)
 
         await self.session.execute(delete(product))

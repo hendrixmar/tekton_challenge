@@ -11,7 +11,9 @@ class ProductBase(SQLModel):
     status: bool = Field(default=True)
     stock: PositiveInt = Field(default=0)
     description: str
-    price: condecimal(ge=Decimal('0.0'), max_digits=10, decimal_places=2) = Field(default=0)
+    price: condecimal(ge=Decimal("0.0"), max_digits=10, decimal_places=2) = Field(
+        default=0
+    )
 
 
 class Product(ProductBase, table=True):

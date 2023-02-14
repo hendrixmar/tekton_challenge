@@ -3,9 +3,29 @@ on: push
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.9" ]
     steps:
       - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        working-directory: ./project
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+      - name: Black formatter
+        run: |
+          black .
+      - name: Isort formatter
+        run: |
+          isort .
+      - name: Lint with flake8
+        run: |
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
       - name: Build the stack
         run: docker-compose up -d --build
-      - name: Test
+      - name: Migrations
+        run: docker-compose exec -T alembic upgrade head
+      - name: Testing
         run: docker-compose exec -T web pytest
