@@ -20,4 +20,3 @@ RUN pip install -r requirements.txt
 
 # add app
 COPY . .
-USER el-pepe
