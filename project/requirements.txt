@@ -10,6 +10,7 @@ passlib[bcrypt]
 python-multipart
 python-dotenv
 pytest_asyncio
+pydantic[email]
 flake8
 pytest
 black
