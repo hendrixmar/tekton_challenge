@@ -19,6 +19,3 @@ class ProductBase(SQLModel):
 class Product(ProductBase, table=True):
     product_id: int = Field(default=None, primary_key=True)
 
-
-class ProductCreate(ProductBase):
-    pass
